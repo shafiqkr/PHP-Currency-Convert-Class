@@ -12,6 +12,13 @@ __$cache__ - Set this to FALSE if you do not want to enabled cachine (TRUE by de
 __$cacheFolder__ - Set your cache folder. By default, it is /classes/convert  
 __$cacheTimeout__ - Set the amount of time the rates are cached for (in seconds), set to 1 day by default  
 
+## Config
+
+Edit those two parameters depending on your preferences:  
+  
+__BASE_PATH_CACHE__ - Cache folder location 
+__CURRENCY_CONVERTER_URL__ - URL to the currency service used  
+
 Sample usage in usage.php
   
 ## Methods

@@ -1,6 +1,6 @@
 <?php
 
-require_once 'classes/convert.php';
+require_once 'classes/Convert.php';
 
 $convert = new Convert;
 

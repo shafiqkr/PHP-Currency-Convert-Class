@@ -1,5 +1,5 @@
 <?php
-
+include_once __DIR__ . '/../config.php';
 /*
 *
 * PHP Currency Conversion Class
@@ -55,7 +55,7 @@ Class Convert {
 	
 	public function __construct($cache = TRUE, $folder = 'dcf', $cacheTimeout = 7200)
 	{
-		$this->cacheFolder = ($folder == 'dcf') ? dirname(__FILE__).'/convert/' : $folder;
+		$this->cacheFolder = ($folder == 'dcf') ? BASE_PATH_CACHE : $folder;
 	
 		if (is_writable($this->cacheFolder) && $cache == TRUE) { 		
 			$this->cachable     = TRUE;
@@ -77,7 +77,7 @@ Class Convert {
 		$rate = $this->getCache($from.$to);
 		
 		if ($rate !== FALSE) {			
-			$return = $rate * $amount;			
+			$return = $rate * $amount;
 		}
 		
 		else {
@@ -108,14 +108,14 @@ Class Convert {
 	
 	protected function fetch($amount, $from, $to)
 	{
-		$url    = "http://rate-exchange.appspot.com/currency?q={$amount}&from={$from}&to={$to}";
+		$url    = CURRENCY_CONVERTER_URL."?q={$amount}&from={$from}&to={$to}";
 		$amount = (float) $amount;
 		
 		if (in_array('curl', get_loaded_extensions())) {
 		
 			$ch = curl_init();
 			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-			curl_setopt($ch, CURLOPT_URL, "http://rate-exchange.appspot.com/currency?q={$amount}&from={$from}&to={$to}");
+			curl_setopt($ch, CURLOPT_URL, CURRENCY_CONVERTER_URL."?q={$amount}&from={$from}&to={$to}");
 			
 			$response = json_decode(curl_exec($ch), true);
 		}
@@ -165,7 +165,7 @@ Class Convert {
 		}
 		
 		if (!$this->validateCurrency($from, $to)) {		
-			throw new Exception('Invalid currency code - must be exactly 3 letters');			
+			throw new Exception('Invalid currency code - must be exactly 3 letters');	
 		}
 		
 		# Gets the rate
